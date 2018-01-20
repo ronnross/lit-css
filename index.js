@@ -1,17 +1,4 @@
-const fs = require('fs');
-
-function writeToFile(fileName, contentToWrite) {
-    fs.writeFile(fileName, contentToWrite, (err) => {
-        if (err) throw err;
-        console.log('File Created!');
-    });
-}
-
-function css(template, ...expressions) {
-    return template.reduce((accumulator, part, i) => {
-        return accumulator + expressions[i - 1] + part
-    })
-}
+const {writeToFile, css} = require('./lit-css')
 
 const range = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 
@@ -140,7 +127,6 @@ const generatedCss =
     ${getIterableStyles(range, breakpoint, startStyles)}
     ${getIterableStyles(range, breakpoint, spanStyles)}
     ${getIterableStyles(range, breakpoint, rowStyles)}
-    ${getIterableStyles(range, breakpoint, gridStyles)}
 }
 `
         )
