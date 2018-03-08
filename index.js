@@ -1,20 +1,21 @@
-const {writeToFile, css} = require('./lit-css')
+const { css } = require('./lit-css')
+const { writeToFile } = require('./resultToFile')
 
 const range = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 
 const breakpoints = {
-    '': '0px',
-    '-md': '768px',
-    '-lg': '992'
+  '': '0px',
+  '-md': '768px',
+  '-lg': '992'
 }
 
 // This can later come from rhythm
 const spacing = {
-    0: "0",
-    8: "0.5rem",
-    16: "1rem",
-    32: "2rem",
-    64: "4rem"
+  0: "0",
+  8: "0.5rem",
+  16: "1rem",
+  32: "2rem",
+  64: "4rem"
 };
 
 const columnStyles = (breakpoint) => (i) => `
@@ -115,13 +116,13 @@ const gridStyles = (i) => `
 `
 
 const getIterableStyles = (arr, breakpoint, style) => arr
-    .map(style(breakpoint))
-    .join('');
+  .map(style(breakpoint))
+  .join('');
 
 
 const generatedCss =
-    Object.keys(breakpoints)
-        .map(breakpoint => css`
+  Object.keys(breakpoints)
+    .map(breakpoint => css`
 @media (min-width: ${breakpoints[breakpoint]}) {
     ${getIterableStyles(range, breakpoint, columnStyles)}
     ${getIterableStyles(range, breakpoint, startStyles)}
@@ -129,8 +130,8 @@ const generatedCss =
     ${getIterableStyles(range, breakpoint, rowStyles)}
 }
 `
-        )
-        .join('')
+    )
+    .join('')
 
 // console.log(generatedCss)
 writeToFile('main.css', generatedCss)
